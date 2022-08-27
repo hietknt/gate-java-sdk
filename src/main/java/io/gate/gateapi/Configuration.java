@@ -12,7 +12,7 @@ package io.gate.gateapi;
 
 
 public class Configuration {
-    private static ApiClient defaultApiClient = new ApiClient();
+    private static ApiClient defaultApiClient = new ApiClient(false);
 
     /**
      * Get the default API client, which would be used when creating API
@@ -32,5 +32,9 @@ public class Configuration {
      */
     public static void setDefaultApiClient(ApiClient apiClient) {
         defaultApiClient = apiClient;
+    }
+
+    public static void createNewClientWithProxy() {
+        defaultApiClient = new ApiClient(true);
     }
 }

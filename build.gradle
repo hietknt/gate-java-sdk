@@ -99,8 +99,8 @@ if(hasProperty('target') && target == 'android') {
 
 dependencies {
     compile "com.google.code.findbugs:jsr305:3.0.2"
-    compile 'com.squareup.okhttp3:okhttp:3.14.7'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.14.7'
+    compile 'com.squareup.okhttp3:okhttp:4.10.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:4.10.0'
     compile 'com.google.code.gson:gson:2.8.6'
     compile 'io.gsonfire:gson-fire:1.8.4'
     compile 'commons-codec:commons-codec:1.14'
