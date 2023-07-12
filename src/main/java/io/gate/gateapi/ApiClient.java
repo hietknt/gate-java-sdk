@@ -18,6 +18,7 @@ import io.gate.gateapi.auth.HttpBearerAuth;
 import okhttp3.Authenticator;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Credentials;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -101,16 +102,24 @@ public class ApiClient {
      * Basic constructor for ApiClient
      */
     public ApiClient(boolean useProxy) {
-        this("", "", useProxy);
+        this("", "", useProxy, null, null, null, null);
     }
 
-    public ApiClient(String key, String secret, boolean useProxy) {
+    public ApiClient(String ip, String port, String login, String password) {
+        this("", "", false, ip, port, login, password);
+    }
+
+    public ApiClient(String key, String secret, boolean useProxy,
+                     String ip, String port, String login, String password) {
         init();
         GateApiV4Auth gateApiV4Auth = new GateApiV4Auth(key, secret);
         if (useProxy) {
             initHttpClientWithProxy(Collections.singletonList(gateApiV4Auth));
+        } else if (ip != null && port != null && login != null && password != null) {
+            initHttpClientWithProxy(Collections.singletonList(gateApiV4Auth), ip, port, login, password);
         } else {
             initHttpClient(Collections.singletonList(gateApiV4Auth));
+
         }
 
         // Setup authentications (key: authentication name, value: authentication).
@@ -145,6 +154,27 @@ public class ApiClient {
                         systemProperties.getProperty("https.proxyHost"),
                         Integer.parseInt(systemProperties.getProperty("https.proxyPort")))))
                 .proxyAuthenticator(Authenticator.JAVA_NET_AUTHENTICATOR);
+
+        httpClient = builder.build();
+    }
+
+    private void initHttpClientWithProxy(List<Interceptor> interceptors,
+                                         String ip, String port, String login, String password) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.addNetworkInterceptor(getProgressInterceptor());
+        for (Interceptor interceptor : interceptors) {
+            builder.addInterceptor(interceptor);
+        }
+
+        Authenticator proxyAuthenticator = (route, response) -> {
+            String credential = Credentials.basic(login, password);
+            return response.request().newBuilder()
+                    .header("Proxy-Authorization", credential)
+                    .build();
+        };
+
+        builder.proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ip, Integer.parseInt(port))))
+                .proxyAuthenticator(proxyAuthenticator);
 
         httpClient = builder.build();
     }

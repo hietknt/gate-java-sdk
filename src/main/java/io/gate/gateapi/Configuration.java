@@ -37,4 +37,8 @@ public class Configuration {
     public static void createNewClientWithProxy() {
         defaultApiClient = new ApiClient(true);
     }
+
+    public static void createNewClientWithProxy(String ip, String port, String login, String password) {
+        defaultApiClient = new ApiClient(ip, port, login, password);
+    }
 }
