@@ -10,14 +10,9 @@
 
 package io.gate.gateapi.models;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+
+import java.util.Objects;
 
 /**
  * CurrencyChain
@@ -47,17 +42,22 @@ public class CurrencyChain {
     @SerializedName(SERIALIZED_NAME_IS_WITHDRAW_DISABLED)
     private Integer isWithdrawDisabled;
 
+    public static final String SERIALIZED_NAME_CONTRACT_ADDRESS = "contract_address";
+    @SerializedName(SERIALIZED_NAME_CONTRACT_ADDRESS)
+    private String contractAddress;
+
 
     public CurrencyChain chain(String chain) {
-        
+
         this.chain = chain;
         return this;
     }
 
-     /**
+    /**
      * Chain name
+     *
      * @return chain
-    **/
+     **/
     @javax.annotation.Nullable
     public String getChain() {
         return chain;
@@ -69,15 +69,16 @@ public class CurrencyChain {
     }
 
     public CurrencyChain nameCn(String nameCn) {
-        
+
         this.nameCn = nameCn;
         return this;
     }
 
-     /**
+    /**
      * Chain name in Chinese
+     *
      * @return nameCn
-    **/
+     **/
     @javax.annotation.Nullable
     public String getNameCn() {
         return nameCn;
@@ -89,15 +90,16 @@ public class CurrencyChain {
     }
 
     public CurrencyChain nameEn(String nameEn) {
-        
+
         this.nameEn = nameEn;
         return this;
     }
 
-     /**
+    /**
      * Chain name in English
+     *
      * @return nameEn
-    **/
+     **/
     @javax.annotation.Nullable
     public String getNameEn() {
         return nameEn;
@@ -109,15 +111,16 @@ public class CurrencyChain {
     }
 
     public CurrencyChain isDisabled(Integer isDisabled) {
-        
+
         this.isDisabled = isDisabled;
         return this;
     }
 
-     /**
+    /**
      * If it is disabled. 0 means NOT being disabled
+     *
      * @return isDisabled
-    **/
+     **/
     @javax.annotation.Nullable
     public Integer getIsDisabled() {
         return isDisabled;
@@ -129,15 +132,16 @@ public class CurrencyChain {
     }
 
     public CurrencyChain isDepositDisabled(Integer isDepositDisabled) {
-        
+
         this.isDepositDisabled = isDepositDisabled;
         return this;
     }
 
-     /**
+    /**
      * Is deposit disabled. 0 means not
+     *
      * @return isDepositDisabled
-    **/
+     **/
     @javax.annotation.Nullable
     public Integer getIsDepositDisabled() {
         return isDepositDisabled;
@@ -149,15 +153,16 @@ public class CurrencyChain {
     }
 
     public CurrencyChain isWithdrawDisabled(Integer isWithdrawDisabled) {
-        
+
         this.isWithdrawDisabled = isWithdrawDisabled;
         return this;
     }
 
-     /**
+    /**
      * Is withdrawal disabled. 0 means not
+     *
      * @return isWithdrawDisabled
-    **/
+     **/
     @javax.annotation.Nullable
     public Integer getIsWithdrawDisabled() {
         return isWithdrawDisabled;
@@ -167,6 +172,16 @@ public class CurrencyChain {
     public void setIsWithdrawDisabled(Integer isWithdrawDisabled) {
         this.isWithdrawDisabled = isWithdrawDisabled;
     }
+
+    @javax.annotation.Nullable
+    public String getContractAddress() {
+        return contractAddress;
+    }
+
+    public void setContractAddress(String contractAddress) {
+        this.contractAddress = contractAddress;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -181,12 +196,13 @@ public class CurrencyChain {
                 Objects.equals(this.nameEn, currencyChain.nameEn) &&
                 Objects.equals(this.isDisabled, currencyChain.isDisabled) &&
                 Objects.equals(this.isDepositDisabled, currencyChain.isDepositDisabled) &&
-                Objects.equals(this.isWithdrawDisabled, currencyChain.isWithdrawDisabled);
+                Objects.equals(this.isWithdrawDisabled, currencyChain.isWithdrawDisabled) &&
+                Objects.equals(this.contractAddress, currencyChain.contractAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(chain, nameCn, nameEn, isDisabled, isDepositDisabled, isWithdrawDisabled);
+        return Objects.hash(chain, nameCn, nameEn, isDisabled, isDepositDisabled, isWithdrawDisabled, contractAddress);
     }
 
 
@@ -200,6 +216,7 @@ public class CurrencyChain {
         sb.append("      isDisabled: ").append(toIndentedString(isDisabled)).append("\n");
         sb.append("      isDepositDisabled: ").append(toIndentedString(isDepositDisabled)).append("\n");
         sb.append("      isWithdrawDisabled: ").append(toIndentedString(isWithdrawDisabled)).append("\n");
+        sb.append("      contractAddress: ").append(toIndentedString(contractAddress)).append("\n");
         sb.append("}");
         return sb.toString();
     }
